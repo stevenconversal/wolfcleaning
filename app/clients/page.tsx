@@ -16,9 +16,8 @@ export default async function ClientsPage({ searchParams }: { searchParams: { zo
   if (searchParams.status) where.status = searchParams.status;
   if (searchParams.q) {
     where.OR = [
-      { name: { contains: searchParams.q } },
-      { address: { contains: searchParams.q } },
-      { contactPerson: { contains: searchParams.q } },
+      { name: { contains: searchParams.q, mode: 'insensitive' } },
+      { address: { contains: searchParams.q, mode: 'insensitive' } },
     ];
   }
 
@@ -43,27 +42,26 @@ export default async function ClientsPage({ searchParams }: { searchParams: { zo
         </Link>
       </div>
 
-      {/* Filters */}
       <form className="flex flex-wrap gap-2 mb-4">
         <input type="text" name="q" defaultValue={searchParams.q} placeholder="Zoek klant..."
           className="border border-wc-border rounded-lg px-3 py-2 text-sm bg-white text-wc-text placeholder:text-wc-text-ter w-full sm:w-64 focus:outline-none focus:border-wc-blue" />
         <select name="zone" defaultValue={searchParams.zone || ''}
-          className="border border-wc-border rounded-lg px-3 py-2 text-sm bg-white text-wc-text focus:outline-none focus:border-wc-blue"
-          onChange={(e) => e.target.form?.submit()}>
+          className="border border-wc-border rounded-lg px-3 py-2 text-sm bg-white text-wc-text focus:outline-none focus:border-wc-blue">
           <option value="">Alle zones</option>
           {zones.map(z => <option key={z.id} value={z.id}>{z.name}</option>)}
         </select>
         <select name="status" defaultValue={searchParams.status || ''}
-          className="border border-wc-border rounded-lg px-3 py-2 text-sm bg-white text-wc-text focus:outline-none focus:border-wc-blue"
-          onChange={(e) => e.target.form?.submit()}
+          className="border border-wc-border rounded-lg px-3 py-2 text-sm bg-white text-wc-text focus:outline-none focus:border-wc-blue">
           <option value="">Alle statussen</option>
           <option value="active">Actief</option>
           <option value="paused">Gepauzeerd</option>
           <option value="inactive">Inactief</option>
         </select>
+        <button type="submit" className="border border-wc-border rounded-lg px-4 py-2 text-sm bg-white text-wc-text-sec hover:bg-wc-surface">
+          Zoek
+        </button>
       </form>
 
-      {/* Client list */}
       <div className="bg-white border border-wc-border rounded-xl overflow-hidden">
         {clients.length === 0 ? (
           <div className="px-5 py-12 text-center text-sm text-wc-text-ter">Geen klanten gevonden.</div>
