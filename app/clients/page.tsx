@@ -55,7 +55,7 @@ export default async function ClientsPage({ searchParams }: { searchParams: { zo
         </select>
         <select name="status" defaultValue={searchParams.status || ''}
           className="border border-wc-border rounded-lg px-3 py-2 text-sm bg-white text-wc-text focus:outline-none focus:border-wc-blue"
-          onChange="this.form.submit()">
+          onChange={(e) => e.target.form?.submit()}
           <option value="">Alle statussen</option>
           <option value="active">Actief</option>
           <option value="paused">Gepauzeerd</option>
