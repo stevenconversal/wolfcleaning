@@ -49,7 +49,7 @@ export default async function ClientsPage({ searchParams }: { searchParams: { zo
           className="border border-wc-border rounded-lg px-3 py-2 text-sm bg-white text-wc-text placeholder:text-wc-text-ter w-full sm:w-64 focus:outline-none focus:border-wc-blue" />
         <select name="zone" defaultValue={searchParams.zone || ''}
           className="border border-wc-border rounded-lg px-3 py-2 text-sm bg-white text-wc-text focus:outline-none focus:border-wc-blue"
-          onChange="this.form.submit()">
+          onChange={(e) => e.target.form?.submit()}>
           <option value="">Alle zones</option>
           {zones.map(z => <option key={z.id} value={z.id}>{z.name}</option>)}
         </select>
